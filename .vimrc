@@ -36,7 +36,8 @@ noremap <Leader>e :quit<CR>
 noremap <Leader>E :qa<CR>
 
 
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+" bind Ctrl+<movement> keys to move around the windows,
+" instead of using Ctrl+w + <movement>
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
@@ -51,20 +52,22 @@ map <Leader>m <esc>:tabnext<CR>
 " Better color scheme
 set t_Co=256
 color wombat256mod
+" set background=dark
+" colorscheme solarized
 
 
 " Showing line numbers and length
 set number " show line numbers
-set tw=79 " width of document (used by gd)
+set tw=79  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
-set fo-=t " don't automatically wrap text when typing
+set fo-=t  " don't automatically wrap text when typing
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
 
 " Show whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+" au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 " Useful settings
@@ -101,3 +104,20 @@ let g:pymode_syntax = 1
 let g:pymode_syntax_builtin_objs = 0
 let g:pymode_syntax_builtin_funcs = 0
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+
+" Settings for vim-javascript
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
+
+" Settings for nodejs omnifunc
+autocmd FileType javascript set omnifunc=nodejscomplete#CompleteJS
+let g:node_jscomplete = 1
+
+
+" Enable omnifunc for python, css and html
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
