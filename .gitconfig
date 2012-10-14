@@ -12,5 +12,8 @@
 [rerere]
       enabled = true
 [core]
-      editor = nano
+      editor = vim
       excludesfile = ~/.gitignore_global
+[user]
+	name = João Paulo Dubas
+	email = joao.dubas@gmail.com
