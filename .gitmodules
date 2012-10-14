@@ -7,3 +7,15 @@
 [submodule ".vim/bundle/python-mode"]
 	path = .vim/bundle/python-mode
 	url = https://github.com/klen/python-mode
+[submodule ".vim/bundle/vim-javascript"]
+	path = .vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule ".vim/bundle/vim-nodejs-complete"]
+	path = .vim/bundle/vim-nodejs-complete
+	url = https://github.com/myhere/vim-nodejs-complete.git
+[submodule ".vim/bundle/jscomplete-vim"]
+	path = .vim/bundle/jscomplete-vim
+	url = https://github.com/teramako/jscomplete-vim.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
