@@ -30,6 +30,7 @@ Create symlinks:
     ln -s webfaction-dotfiles/.gitconfig
     ln -s webfaction-dotfiles/.gitignore_global
     ln -s webfaction-dotfiles/.screenrc
+    ln -s webfaction-dotfiles/.tmux.conf
     ln -s webfaction-dotfiles/.vimrc
     rm -rf .vim
     ln -s webfaction-dotfiles/.vim
