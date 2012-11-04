@@ -1,0 +1,31 @@
+# encoding: utf-8
+import glob
+import os
+import sys
+
+# indicate how many '/' there are in the root dir of a webapp
+WEBAPPS_DIR_COUNT = 4
+
+# retrieve the current working dir and count '/'
+cwd = os.getcwd()
+cwd_count = cwd.count('/')
+
+# set how many up dirs there will be to get into webapp root
+up_how_many_dirs = cwd_count - WEBAPPS_DIR_COUNT
+up_dirs = ['..'] * (up_how_many_dirs)
+
+# only try to add a site package dir if the execution is in a webapp dir
+if up_how_many_dirs >= 0:
+    # get current python version
+    version = '.'.join(map(str, sys.version_info[:2]))
+
+    # set up the way to get in to the root of a webapp
+    ROOT = os.path.join(cwd, *up_dirs)
+    FROM_ROOT = lambda *x: os.path.join(ROOT, *x)
+
+    # retrieve possible site packages dir
+    site_package = FROM_ROOT('lib', 'python{0}'.format(version))
+
+    if os.path.isdir(site_package) and site_package not in sys.path:
+        sys.path.insert(0, site_package)
+
