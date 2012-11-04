@@ -1,1 +1,11 @@
+# Configuration
 .ropeproject
+.codeintel
+
+# Log files
+*.log
+
+# Temporary files
+*.swp
+*.pyc
+*.pyo
