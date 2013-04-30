@@ -1,0 +1,45 @@
+# environment variables
+bindir=$HOME/local/bin
+if [[ ":$PATH:" != *":$bindir:"* ]]; then
+    PATH=$bindir:$PATH
+    export PATH
+fi
+
+# local development
+export PROJECTS=$HOME/public
+
+# virtualenv
+export WORKON_HOME=$HOME/.venv
+export PROJECT_HOME=$HOME/public
+. /usr/local/bin/virtualenvwrapper.sh
+
+# todo.txt-cli configuration
+export TODOTXT_CFG_FILE=$HOME/.todo/todo.cfg
+. $bindir/todo_completion
+alias t="todo -d $TODOTXT_CFG_FILE"
+complete -F _todo t
+alias punch='/usr/bin/python $bindir/punch'
+
+# aliases
+sublime() {
+    $bindir/sublime $@ &
+}
+
+# update bash path
+pathup() {
+    local action="$1"; shift
+    case "$action" in
+        popd)
+            [[ $# -eq 0 ]] && builtin popd || builtin popd "$*" ;;
+        cd|pushd)
+            builtin $action "$*" ;;
+        *)
+            return ;;
+    esac
+    PATH=`/usr/bin/python $HOME/.path_env.py`
+    export PATH
+}
+alias cd="pathup cd"
+alias pushd="pathup pushd"
+alias popd="pathup popd"
+
