@@ -22,3 +22,9 @@
 [submodule "xresources"]
 	path = xresources
 	url = https://github.com/solarized/xresources.git
+[submodule "tmux-colors-solarized"]
+	path = tmux-colors-solarized
+	url = https://github.com/seebi/tmux-colors-solarized.git
+[submodule ".vim/bundle/command-t"]
+	path = .vim/bundle/command-t
+	url = git://git.wincent.com/command-t.git
