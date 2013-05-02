@@ -67,8 +67,11 @@ set number " show line numbers
 set tw=79  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
+" Highlight lines over 80 columns
+" Based on solution on:
+" http://stackoverflow.com/questions/235439/vim-80-column-layout-concern
+highlight OverLength ctermbg=red ctermfg=white guibg=blue
+match OverLength /\%81v.\+/
 
 
 " Show whitespace
@@ -120,13 +123,18 @@ let g:html_indent_style1 = "inc"
 
 " Settings for nodejs omnifunc
 autocmd FileType javascript set omnifunc=nodejscomplete#CompleteJS
+autocmd FileType javascript setl sw=2 sts=2 et
 let g:node_jscomplete = 1
 
 
 " Enable omnifunc for python, css and html
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python setl sw=4 sts=4 et
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css setl sw=2 sts=2 et
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html setl sw=2 sts=2 et
+autocmd FileType jade setl sw=2 sts=2 et
 
 " Dismiss preview window after omnicomplete
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
