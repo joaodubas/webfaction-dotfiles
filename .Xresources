@@ -71,5 +71,5 @@
 
 
 ! Font configuration
-URxvt*font:               xft:Monospace:pixelsize:14:antialias=false
-URxvt*boldFont:           xft:Monospace:bold:pixelsize:14:antialias=false
+*font:                    xft:Monospace:pixelsize:14:antialias=false
+*boldFont:                xft:Monospace:bold:pixelsize:14:antialias=false
