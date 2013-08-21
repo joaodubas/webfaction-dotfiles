@@ -67,6 +67,7 @@ set number " show line numbers
 set tw=79  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
+
 " Highlight lines over 80 columns
 " Based on solution on:
 " http://stackoverflow.com/questions/235439/vim-80-column-layout-concern
@@ -93,6 +94,13 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+
+" Settings for folding
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
 
 
 " Settings for vim-powerline
@@ -134,6 +142,8 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType css setl sw=2 sts=2 et
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType html setl sw=2 sts=2 et
+autocmd FileType xhtml set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType xhtml setl sw=2 sts=2 et
 autocmd FileType jade setl sw=2 sts=2 et
 
 " Dismiss preview window after omnicomplete
