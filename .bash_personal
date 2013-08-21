@@ -43,3 +43,36 @@ alias cd="pathup cd"
 alias pushd="pathup pushd"
 alias popd="pathup popd"
 
+export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \[\033[01;34m\]\h\[\033[01;34m\] \w\[\033[35m\]$(__git_ps1 " %s") \[\033[01;34m\]>\[\033[00m\] '
+
+# set terminal colors
+# if [ "$TERM" = "xterm" ] ; then
+#     if [ -z "$COLORTERM" ] ; then
+#         if [ -z "$XTERM_VERSION" ] ; then
+#             echo "Warning: Terminal wrongly calling itself 'xterm'."
+#         else
+#             case "$XTERM_VERSION" in
+#                 "XTerm(256)") TERM="xterm-256color" ;;
+#                 "XTerm(88)") TERM="xterm-88color" ;;
+#                 "XTerm") ;;
+#                 *)
+#                     echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
+#                     ;;
+#             esac
+#         fi
+#     else
+#         case "$COLORTERM" in
+#             gnome-terminal)
+#                 # Those crafty Gnome folks require you to check COLORTERM,
+#                 # but don't allow you to just *favor the setting over TERM.
+#                 # Instead you need to compare it and perform some guesses
+#                 # based upon the value. This is, perhaps, too simplistic.
+#                 TERM="gnome-256color"
+#                 ;;
+#             *)
+#                 echo "Warning: Unrecognized COLORTERM: $COLORTERM"
+#                 ;;
+#         esac
+#     fi
+# fi
+# export TERM="gnome-256color"
