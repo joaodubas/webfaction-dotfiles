@@ -157,9 +157,18 @@ import os
 import sys
 import vim
 if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin', 'activate_this.py')
+    envdir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, envdir)
+    activate_this = os.path.join(envdir, 'bin', 'activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
+
+    projdir = open(
+        os.path.join(envdir, '.project')
+    ).read().split('\n')[0]
+    projname = os.path.basename(projdir).split('-')[-1]
+    sys.path.insert(1, os.path.join(projdir, projname))
+    os.environ['DJANGO_SETTINGS_MODULE'] = '{0}.settings.local'.format(
+        projname
+    )
 EOF
 
