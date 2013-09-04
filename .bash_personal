@@ -43,7 +43,21 @@ alias cd="pathup cd"
 alias pushd="pathup pushd"
 alias popd="pathup popd"
 
-export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \[\033[01;34m\]\h\[\033[01;34m\] \w\[\033[35m\]$(__git_ps1 " %s") \[\033[01;34m\]>\[\033[00m\] '
+# trim PS1 to show only first letters of each dir
+_dir_chomp () {
+    local IFS=/ c=1 n d
+    local p=(${1/#$HOME/\~}) r=${p[*]}
+    local s=${#r}
+    while ((s>$2&&c<${#p[*]}-1))
+    do
+        d=${p[c]}
+        n=1;[[ $d = .* ]]&&n=2
+        ((s-=${#d}-n))
+        p[c++]=${d:0:n}
+    done
+    echo "${p[*]}"
+}
+export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \[\033[01;34m\]$(_dir_chomp "$(pwd)" 10)\[\033[35m\]$(__git_ps1 " %s") \[\033[01;34m\]>\[\033[00m\] '
 
 # set terminal colors
 # if [ "$TERM" = "xterm" ] ; then
