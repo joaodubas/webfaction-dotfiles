@@ -6,8 +6,10 @@ autocmd! bufwritepost .vimrc source %
 call pathogen#infect()
 
 
-" Syntax highlighting
+" Go settings and syntax highlight
 filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
 
