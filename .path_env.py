@@ -10,6 +10,33 @@ PROJECT_HOME = os.environ.get(
 )
 
 
+def unremovable_dir(path):
+    """unremovable_dir(path) -- Verify if a given path can't be removed from the
+    PATH env.
+
+    Takes into consideration all variables that are set in environment.
+
+    Return a boolean.
+
+    -- path: a system path
+
+    """
+    # TODO: this should be more generic, to accept any number of environ
+    # variables. But for the moment it will serve the purpose of allow that some
+    # environment paths be ignore from the removal process.
+
+    ignore_path = lambda e, x: os.environ[e] in x if os.environ.get(e) else False
+    rules = (
+        lambda x: ignore_path('GOPATH', x),
+        lambda x: ignore_path('GOROOT', x),
+    )
+    for fn in rules:
+        if fn(path):
+            return True
+    else:
+        return PROJECT_HOME not in path
+
+
 def back(path):
     """back(path) -- Get One level up in the tree from the path.
 
@@ -41,7 +68,7 @@ def remove_project_from_path(path):
 
     """
     return ':'.join([pathname for pathname in path.split(':') \
-            if PROJECT_HOME not in pathname])
+            if unremovable_dir(pathname)])
 
 
 def add_project_to_path(project, path, sep=':'):
