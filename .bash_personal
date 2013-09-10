@@ -26,6 +26,10 @@ sublime() {
     $bindir/sublime $@ &
 }
 
+startmux() {
+    tmux new -s dev
+}
+
 # update bash path
 pathup() {
     local action="$1"; shift
