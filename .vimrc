@@ -146,6 +146,8 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType html setl sw=2 sts=2 et
 autocmd FileType xhtml set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xhtml setl sw=2 sts=2 et
+autocmd FileType htmldjango set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType htmldjango setl sw=2 sts=2 et
 autocmd FileType jade setl sw=2 sts=2 et
 
 " Dismiss preview window after omnicomplete
