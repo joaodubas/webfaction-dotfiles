@@ -13,7 +13,6 @@ set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
 
-
 " Better copy & paste
 set pastetoggle=<F2>
 
