@@ -153,6 +153,9 @@ py << EOF
 import os
 import sys
 import vim
+
+has_manage = lambda p: os.path.isdir(p) and 'manage.py' in os.listdir(p)
+
 if 'VIRTUAL_ENV' in os.environ:
     envdir = os.environ['VIRTUAL_ENV']
     sys.path.insert(0, envdir)
@@ -162,8 +165,23 @@ if 'VIRTUAL_ENV' in os.environ:
     projdir = open(
         os.path.join(envdir, '.project')
     ).read().split('\n')[0]
-    projname = os.path.basename(projdir).split('-')[-1]
-    sys.path.insert(1, os.path.join(projdir, projname))
+
+    # find project path by determining the directory that contains the manage.py
+    # file. the project name is defined as the basename for the project path
+    if has_manage(projdir):
+        projpath = projdir
+    else:
+        paths = [path for path in os.listdir(projdir) if has_manage(path)]
+        if not len(paths):
+            projpath = projdir
+        else:
+            projpath = os.path.join(projdir, paths[0])
+    projname = os.path.basename(projpath)
+
+    # add the project path to the path and define the DJANGO_SETTINGS_MODULE
+    # in this case I assume that the settings is a module and not a python
+    # file
+    sys.path.insert(1, projpath)
     os.environ['DJANGO_SETTINGS_MODULE'] = '{0}.settings.local'.format(
         projname
     )
