@@ -9,3 +9,7 @@
 *.swp
 *.pyc
 *.pyo
+*.tern-port
+
+# Project deps
+node_modules
