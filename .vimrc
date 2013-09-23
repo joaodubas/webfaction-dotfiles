@@ -137,6 +137,12 @@ autocmd FileType htmldjango set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType htmldjango setl sw=2 sts=2 et
 autocmd FileType jade setl sw=2 sts=2 et
 
+
+" Ignore files and dirs in CommandT
+set wildignore+=*.pyc,**/migrations/*,**/assets/*,**/docs/*
+set wildignore+=**/node_modules/*,**/bower_components/*
+
+
 " Dismiss preview window after omnicomplete
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
