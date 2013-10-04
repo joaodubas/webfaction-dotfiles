@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/gocode.vim"]
 	path = .vim/bundle/gocode.vim
 	url = https://github.com/golangtw/gocode.vim.git
+[submodule ".autoenv"]
+	path = .autoenv
+	url = https://github.com/kennethreitz/autoenv.git
