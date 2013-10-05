@@ -13,6 +13,7 @@ set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
 
+
 " Better copy & paste
 set pastetoggle=<F2>
 
@@ -68,6 +69,7 @@ set number " show line numbers
 set tw=79  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
+
 
 " Highlight lines over 80 columns
 " Based on solution on:
