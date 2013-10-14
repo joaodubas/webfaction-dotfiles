@@ -17,3 +17,5 @@
 [user]
 	name = João Paulo Dubas
 	email = joao.dubas@gmail.com
+[push]
+    default = simple

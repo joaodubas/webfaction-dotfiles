@@ -5,6 +5,9 @@
 # Log files
 *.log
 
+# Pid files
+*.pid
+
 # Temporary files
 *.swp
 *.pyc
