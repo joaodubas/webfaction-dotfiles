@@ -1,0 +1,3 @@
+# Files
+.vim/bundle/*
+!.vim/bundle/vundle
