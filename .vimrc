@@ -22,6 +22,7 @@ Bundle "digitaltoad/vim-jade"
 " Bundle "pangloss/vim-javascript"
 " Bundle "myhere/vim-nodejs-complete"
 Bundle "Valloric/YouCompleteMe"
+Bundle "scrooloose/syntastic"
 
 
 " Go settings and syntax highlight
