@@ -15,7 +15,7 @@ Bundle "gmarik/vundle"
 Bundle "wincent/Command-T"
 Bundle "kien/ctrlp.vim"
 Bundle "Blackrush/vim-gocode"
-Bundle "davidhalter/jedi-vim"
+" Bundle "davidhalter/jedi-vim"
 Bundle "marijnh/tern_for_vim"
 Bundle "altercation/vim-colors-solarized"
 Bundle "digitaltoad/vim-jade"
@@ -157,8 +157,12 @@ let g:html_indent_style1 = "inc"
 " let g:pymode_folding = 0
 
 
+" Settings for jedi-vim
+" let g:jedi#poup_on_dot = 0
+
+
 " Enable omnifunc for python, css and html
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+" autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python setl sw=4 sts=4 et
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType css setl sw=2 sts=2 et
