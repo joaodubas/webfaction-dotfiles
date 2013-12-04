@@ -15,12 +15,9 @@ Bundle "gmarik/vundle"
 Bundle "wincent/Command-T"
 Bundle "kien/ctrlp.vim"
 Bundle "Blackrush/vim-gocode"
-" Bundle "davidhalter/jedi-vim"
 Bundle "marijnh/tern_for_vim"
 Bundle "altercation/vim-colors-solarized"
 Bundle "digitaltoad/vim-jade"
-" Bundle "pangloss/vim-javascript"
-" Bundle "myhere/vim-nodejs-complete"
 Bundle "Valloric/YouCompleteMe"
 Bundle "scrooloose/syntastic"
 
@@ -137,32 +134,8 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 
-" Settings for nodejs omnifunc
-" autocmd FileType javascript set omnifunc=nodejscomplete#CompleteJS
-" autocmd FileType javascript setl sw=2 sts=2 et
-" let g:node_jscomplete = 1
-
-
-" Settings for python-mode
-" Based on: http://unlogic.co.uk/posts/vim-python-ide.html
-" let g:pymode_rope = 0
-" let g:pymode_lint = 1
-" let g:pymode_lint_checker = "pyflakes,pep8"
-" let g:pymode_lint_write = 1
-" let g:pymode_virtualenv = 1
-" let g:pymode_syntax = 1
-" let g:pymode_syntax_all = 1
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-" let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" let g:pymode_folding = 0
-
-
-" Settings for jedi-vim
-" let g:jedi#poup_on_dot = 0
-
-
 " Enable omnifunc for python, css and html
-" autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript setl sw=2 sts=2 et
 autocmd FileType python setl sw=4 sts=4 et
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType css setl sw=2 sts=2 et
