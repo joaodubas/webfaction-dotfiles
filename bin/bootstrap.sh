@@ -190,9 +190,9 @@ function clone_dotfile() {
 
 
 #
-# Link dotfiles in proper directories
+# Link configuration files in user home path
 #
-function link_dotfile() {
+function link_to_home() {
 	echo "link dotfiles into home"
 	files=(".bash_aliases" ".bash_personal" ".path_env.py" ".tmux.conf" ".vimrc" ".vim" ".gitignore_global")
 	for file in "${files[@]}"; do
@@ -204,6 +204,25 @@ function link_dotfile() {
 	if [ ! -f $home/.gitconfig ]; then
 		cp $dotfiles/.gitconfig $home/
 	fi
+}
+
+
+#
+# Link $dotfiles/bin into user bin dir
+#
+function link_to_bin() {
+	echo "link dotfiles/bin into user/bin"
+	local origin=$dotfiles/bin
+	ln -s $origin/* $localbin
+}
+
+
+#
+# Link needed files from dotfiles
+#
+function link_dotfile() {
+	link_to_home
+	link_to_bin
 }
 
 
@@ -266,6 +285,9 @@ case $step in
 	home)
 		make_home
 		change_owner
+		;;
+	dotfiles)
+		make_conf
 		;;
 	*)
 		upgrade_system
