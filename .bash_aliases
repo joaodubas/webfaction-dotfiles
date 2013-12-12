@@ -34,6 +34,20 @@ alias whois="whois -h whois-servers.net"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 
+# Easy docker container removal
+alias docker-rmc="docker ps -a | grep Exit | cut -d' ' -f1 | xargs docker rm"
+
+# Checkers
+image="joaodubas/checkers:latest"
+pybase="/usr/local/bin"
+nodebase="/usr/local/lib/node_modules/js-checkers/node_modules/.bin"
+dockerbase="docker run -i -t -v $(pwd):/opt/app -w /opt/app"
+alias pylint="$dockerbase -entrypoint $pybase/pylint $image" 
+alias pep8="$dockerbase -entrypoint $pybase/pep8 $image"
+alias pyflakes="$dockerbase -entrypoint $pybase/pyflakes $image"
+alias jshint="$dockerbase -entrypoint $nodebase/jshint $image"
+alias csslint="$dockerbase -entrypoint $nodebase/csslint $image"
+
 # Load .bash_personal
 if [ -f .bash_personal ]; then
     source .bash_personal
