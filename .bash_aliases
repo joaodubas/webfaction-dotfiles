@@ -38,15 +38,28 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias docker-rmc="docker ps -a | grep Exit | cut -d' ' -f1 | xargs docker rm"
 
 # Checkers
-image="joaodubas/checkers:latest"
-pybase="/usr/local/bin"
-nodebase="/usr/local/lib/node_modules/js-checkers/node_modules/.bin"
-dockerbase="docker run -i -t -v $(pwd):/opt/app -w /opt/app"
-alias pylint="$dockerbase -entrypoint $pybase/pylint $image" 
-alias pep8="$dockerbase -entrypoint $pybase/pep8 $image"
-alias pyflakes="$dockerbase -entrypoint $pybase/pyflakes $image"
-alias jshint="$dockerbase -entrypoint $nodebase/jshint $image"
-alias csslint="$dockerbase -entrypoint $nodebase/csslint $image"
+function linters() {
+    local image="joaodubas/checkers:latest"
+    local pybase="/usr/local/bin"
+    local nodebase="/usr/local/lib/node_modules/js-checkers/node_modules/.bin"
+    local dockerbase="docker run -i -t -v $(pwd):/opt/app -w /opt/app"
+    $dockerbase -entrypoint $pybase/$1 $image $2
+}
+function pylint() {
+    linters 'pylint' $1
+}
+function pep8() {
+    linters 'pep8' $1
+}
+function pyflakes() {
+    linters 'pyflakes' $1
+}
+function jshint() {
+    linters 'jshint' $1
+}
+function csslint() {
+    linters 'csslint' $1
+}
 
 # Load .bash_personal
 if [ -f .bash_personal ]; then
