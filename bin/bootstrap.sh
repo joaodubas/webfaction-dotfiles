@@ -82,7 +82,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v0.10.22"
+	local version="v0.10.24"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.gz"
 	local url="http://nodejs.org/dist/$version/$compact"
