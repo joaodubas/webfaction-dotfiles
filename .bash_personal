@@ -25,13 +25,6 @@ export PROJECT_HOME=$HOME/public
 # autoenv
 . $bindir/activate.sh
 
-# todo.txt-cli configuration
-export TODOTXT_CFG_FILE=$HOME/.todo/todo.cfg
-. $bindir/todo_completion
-alias t="todo -d $TODOTXT_CFG_FILE"
-complete -F _todo t
-alias punch='/usr/bin/python $bindir/punch'
-
 # aliases
 sublime() {
     $bindir/sublime $@ &
