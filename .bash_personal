@@ -23,7 +23,7 @@ export PROJECT_HOME=$HOME/public
 . /usr/local/bin/virtualenvwrapper.sh
 
 # autoenv
-. $bindir/activate.sh
+# . $bindir/activate.sh
 
 # aliases
 sublime() {
@@ -41,10 +41,10 @@ pathup() {
         popd)
             [[ $# -eq 0 ]] && builtin popd || builtin popd "$*" ;;
         cd|pushd)
-            builtin $action "$*"
-            if [ $action == "cd" ]; then
-                autoenv_init
-            fi ;;
+            builtin $action "$*";;
+            # if [ $action == "cd" ]; then
+            #     autoenv_init
+            # fi ;;
         *)
             return ;;
     esac
