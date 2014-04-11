@@ -61,6 +61,13 @@ function csslint() {
     linters 'csslint' $1
 }
 
+# maestro orchestration
+function maestro-ng() {
+    local image="joaodubas/maestro:latest"
+    local cmd="docker run -i -t -v $(pwd):/opt/host --rm"
+    $cmd $image $1
+}
+
 # Load .bash_personal
 if [ -f .bash_personal ]; then
     source .bash_personal
