@@ -20,6 +20,7 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "digitaltoad/vim-jade"
 Bundle "Valloric/YouCompleteMe"
 Bundle "scrooloose/syntastic"
+Bundle "jeffkreeftmeijer/vim-numbertoggle"
 
 
 " Go settings and syntax highlight
