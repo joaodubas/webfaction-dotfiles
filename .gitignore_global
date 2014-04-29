@@ -1,6 +1,7 @@
 # Configuration
 .ropeproject
 .codeintel
+.idea
 
 # Log files
 *.log
