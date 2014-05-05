@@ -22,6 +22,10 @@ export WORKON_HOME=$HOME/.venv
 export PROJECT_HOME=$HOME/public
 . /usr/local/bin/virtualenvwrapper.sh
 
+# golang
+export GOROOT=$HOME/local/src/go
+export GOPATH=$HOME/local/go
+
 # autoenv
 # . $bindir/activate.sh
 
