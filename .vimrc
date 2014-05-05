@@ -21,6 +21,7 @@ Bundle "digitaltoad/vim-jade"
 Bundle "Valloric/YouCompleteMe"
 Bundle "scrooloose/syntastic"
 Bundle "jeffkreeftmeijer/vim-numbertoggle"
+Bundle "editorconfig/editorconfig-vim"
 
 
 " Go settings and syntax highlight
