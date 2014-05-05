@@ -101,10 +101,36 @@ function node_install() {
 
 
 #
+# Install go
+#
+function golang_install() {
+	echo "install golang"
+	if [ -s $localsrc/go ]; then
+		return 0
+	fi
+
+	local version="1.2.1"
+	local dirname="go$version.linux-amd64"
+	local compact="$dirname.tar.gz"
+	local url="https://go.googlecode.com/files/$compact"
+
+	cd $localsrc
+	curl -O $url
+	tar -xzf $compact
+	rm $compact
+
+	cd $localbin
+	ln -s ../src/go/bin/* ./
+
+	mkdir -p $home/local/go/{src,bin,pkg}
+}
+
+
+#
 # Change ownership to user
 #
 function change_owner() {
-	echo "grant ownership to vagrant"
+	echo "grant ownership to $user"
 	cd $home
 	chown --recursive $uid:$gid $home
 }
@@ -279,6 +305,10 @@ case $step in
 		node_install
 		change_owner
 		;;
+	golang)
+		golang_install
+		change_owner
+		;;
 	python)
 		prepare_python
 		;;
@@ -295,6 +325,7 @@ case $step in
 		make_home
 		docker_group
 		node_install
+		golang_install
 		make_conf
 		change_owner
 		;;
