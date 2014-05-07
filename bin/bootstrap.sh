@@ -60,6 +60,24 @@ function docker_group() {
 
 
 #
+# Configure docker daemon to expose a given port and dns
+#
+function docker_conf() {
+	echo "configure docker daemon"
+
+	# best way to access docker
+	local sock="-H unix:///var/run/docker.sock"
+	# allow access through url, used by maestro-ng
+	local host="-H 127.0.0.1:2375"
+	# used by skydock
+	local dns="--dns 172.17.42.1"
+
+	echo DOCKER_OPTS=\"$host $sock $dns\" > /etc/default/docker
+}
+
+
+
+#
 # Create needed directories in user home
 #
 function make_home() {
