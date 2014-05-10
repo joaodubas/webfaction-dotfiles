@@ -45,10 +45,7 @@ pathup() {
         popd)
             [[ $# -eq 0 ]] && builtin popd || builtin popd "$*" ;;
         cd|pushd)
-            builtin $action "$*";;
-            # if [ $action == "cd" ]; then
-            #     autoenv_init
-            # fi ;;
+            builtin $action "$*" ;;
         *)
             return ;;
     esac
