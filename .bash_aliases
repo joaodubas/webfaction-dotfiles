@@ -36,6 +36,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Easy docker container removal
 alias docker-rmc="docker ps -a | grep Exit | cut -d' ' -f1 | xargs docker rm"
+alias docker-umount="sudo umount -l $(grep 'aufs' /proc/mounts | awk '{print$2}' | sort -r)"
 
 # Checkers
 function linters() {
@@ -66,6 +67,18 @@ function maestro-ng() {
     local image="joaodubas/maestro:latest"
     local cmd="docker run -i -t -v $(pwd):/opt/host --rm"
     $cmd $image $1
+}
+
+# JavaScript shell
+function js() {
+    docker run \
+        -i \
+        -t \
+        --rm \
+        -v $(pwd):/opt/app \
+        --entrypoint js \
+        joaodubas/spidermonkey:latest \
+        $*
 }
 
 # Load .bash_personal
