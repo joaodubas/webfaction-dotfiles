@@ -33,15 +33,34 @@ gid=$user
 #
 function upgrade_system() {
 	echo "upgrade system"
-	apt-get install -y --quiet linux-image-extra-$(uname -r) software-properties-common
+	apt-get update -y --quiet
+	apt-get install -y --quiet \
+		dkms \
+		linux-headers-generic \
+		linux-headers-$(uname -r) \
+		linux-image-extra-$(uname -r) \
+		software-properties-common
 	# ppa for vim
 	add-apt-repository -y ppa:fcwu-tw/ppa
 	wget -qO- https://get.docker.io/gpg | apt-key add -
 	echo "deb http://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list
-	apt-get update --quiet
+	apt-get update -y --quiet
 
 	echo "install needed deps"
-	apt-get install -y --quiet build-essential lxc-docker python-setuptools python-dev ruby-dev vim vim-nox vim-scripts tmux git make cmake curl
+	apt-get install -y --quiet \
+		build-essential \
+		lxc-docker \
+		python-setuptools \
+		python-dev \
+		ruby-dev \
+		vim \
+		vim-nox \
+		vim-scripts \
+		tmux \
+		git \
+		make \
+		cmake \
+		curl
 }
 
 
