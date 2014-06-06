@@ -60,7 +60,8 @@ function upgrade_system() {
 		git \
 		make \
 		cmake \
-		curl
+		curl \
+		zsh
 }
 
 
@@ -331,6 +332,17 @@ function prepare_python() {
 	install_virtualenv
 }
 
+
+#
+# Install oh-my-zsh
+#
+function install_zsh() {
+	echo "install zsh"
+	export ZSH=${home}/.oh-my-zsh
+	curl -L http://install.ohmyz.sh | bash
+}
+
+
 case $step in
 	upgrade)
 		upgrade_system
@@ -356,8 +368,14 @@ case $step in
 	dotfiles)
 		make_conf
 		;;
+	zsh)
+		upgrade_system
+		install_zsh
+		change_owner
+		;;
 	*)
 		upgrade_system
+		install_zsh
 		prepare_python
 		make_home
 		docker_group
