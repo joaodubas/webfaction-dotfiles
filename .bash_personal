@@ -25,6 +25,10 @@ export PROJECT_HOME=$HOME/public
 # golang
 export GOROOT=$HOME/local/src/go
 export GOPATH=$HOME/local/go
+if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
+	PATH=$GOPATH/bin:$PATH
+	export PATH
+fi
 
 # autoenv
 # . $bindir/activate.sh
