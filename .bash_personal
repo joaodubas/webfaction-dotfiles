@@ -30,9 +30,6 @@ if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
 	export PATH
 fi
 
-# autoenv
-# . $bindir/activate.sh
-
 # aliases
 sublime() {
     $bindir/sublime $@ &
@@ -41,40 +38,6 @@ sublime() {
 startmux() {
     tmux new -s dev
 }
-
-# update bash path
-pathup() {
-    local action="$1"; shift
-    case "$action" in
-        popd)
-            [[ $# -eq 0 ]] && builtin popd || builtin popd "$*" ;;
-        cd|pushd)
-            builtin $action "$*" ;;
-        *)
-            return ;;
-    esac
-    PATH=`/usr/bin/python $HOME/.path_env.py`
-    export PATH
-}
-alias cd="pathup cd"
-alias pushd="pathup pushd"
-alias popd="pathup popd"
-
-# trim PS1 to show only first letters of each dir
-_dir_chomp () {
-    local IFS=/ c=1 n d
-    local p=(${1/#$HOME/\~}) r=${p[*]}
-    local s=${#r}
-    while ((s>$2&&c<${#p[*]}-1))
-    do
-        d=${p[c]}
-        n=1;[[ $d = .* ]]&&n=2
-        ((s-=${#d}-n))
-        p[c++]=${d:0:n}
-    done
-    echo "${p[*]}"
-}
-export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \[\033[01;34m\]$(_dir_chomp "$(pwd)" 10)\[\033[35m\]$(__git_ps1 " %s") \[\033[01;34m\]>\[\033[00m\] '
 
 # Personal hook configurations
 if [ -f ~/.localrc ]; then
