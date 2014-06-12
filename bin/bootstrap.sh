@@ -362,7 +362,6 @@ case $step in
 		;;
 	*)
 		upgrade_system
-		install_zsh
 		prepare_python
 		make_home
 		docker_group
