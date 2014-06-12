@@ -222,18 +222,6 @@ function prepare_ycm() {
 
 
 #
-# Finish enabling of autoenv
-#
-function prepare_autoenv() {
-	echo "install autoenv"
-	cd $localbin
-	if [ ! -L $localbin/activate.sh ]; then
-		ln -s ../src/dotfiles/.autoenv/activate.sh ./
-	fi
-}
-
-
-#
 # Clone or update dotfiles
 #
 function clone_dotfile() {
@@ -249,7 +237,6 @@ function clone_dotfile() {
 	prepare_command_t
 	prepare_tern
 	prepare_ycm
-	prepare_autoenv
 }
 
 
