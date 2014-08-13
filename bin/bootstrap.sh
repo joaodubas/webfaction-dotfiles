@@ -88,7 +88,7 @@ function docker_conf() {
 	# best way to access docker
 	local sock="-H unix:///var/run/docker.sock"
 	# allow access through url, used by maestro-ng
-	local host="-H 127.0.0.1:2375"
+	local host="-H 0.0.0.0:2375"
 	# used by skydock
 	local dns="--dns 172.17.42.1"
 
@@ -120,7 +120,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v0.10.28"
+	local version="v0.10.30"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.gz"
 	local url="http://nodejs.org/dist/$version/$compact"
@@ -147,7 +147,7 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.2.2"
+	local version="1.3.1"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://go.googlecode.com/files/$compact"
