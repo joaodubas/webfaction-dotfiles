@@ -128,8 +128,8 @@ function node_install() {
 	cd $localsrc
 	echo `pwd`
 	echo $localsrc
-	curl -O $url
-	tar -xzf $compact
+	curl -O $url > /dev/null
+	tar -xzf $compact > /dev/null
 	ln -s $dirname nodejs
 	rm $compact
 
@@ -153,8 +153,8 @@ function golang_install() {
 	local url="https://storage.googleapis.com/golang/$compact"
 
 	cd $localsrc
-	curl -O $url
-	tar -xzf $compact
+	curl -O $url > /dev/null
+	tar -xzf $compact > /dev/null
 	rm $compact
 
 	cd $localbin
@@ -185,8 +185,8 @@ function change_owner() {
 function init_submodule() {
 	echo "init dotfiles submodules"
 	cd $dotfiles
-	git submodule update --init --recursive
-	vim +BundleInstall +qall
+	git submodule update --init --recursive >/dev/null
+	vim +BundleInstall +qall 2&> /dev/null
 }
 
 
@@ -196,8 +196,8 @@ function init_submodule() {
 function prepare_command_t() {
 	echo "install command_t"
 	cd $dotfiles/.vim/bundle/Command-T/ruby/command-t
-	ruby extconf.rb
-	make
+	ruby extconf.rb > /dev/null
+	make > /dev/null
 }
 
 
@@ -207,7 +207,7 @@ function prepare_command_t() {
 function prepare_tern() {
 	echo "install tern"
 	cd $dotfiles/.vim/bundle/tern_for_vim
-	$localbin/npm install
+	$localbin/npm install > /dev/null
 }
 
 
@@ -217,7 +217,7 @@ function prepare_tern() {
 function prepare_ycm() {
 	echo "install ycm"
 	cd $dotfiles/.vim/bundle/YouCompleteMe
-	bash install.sh
+	bash install.sh > /dev/null
 }
 
 
