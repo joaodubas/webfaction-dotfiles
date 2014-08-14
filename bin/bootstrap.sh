@@ -33,8 +33,8 @@ gid=$user
 #
 function upgrade_system() {
 	echo "upgrade system"
-	apt-get update -y --quiet
-	apt-get install -y --quiet \
+	apt-get -y -qq --force-yes update
+	apt-get -y -qq --force-yes install \
 		dkms \
 		linux-headers-generic \
 		linux-headers-$(uname -r) \
@@ -150,7 +150,7 @@ function golang_install() {
 	local version="1.3.1"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
-	local url="https://go.googlecode.com/files/$compact"
+	local url="https://storage.googleapis.com/golang/$compact"
 
 	cd $localsrc
 	curl -O $url
@@ -245,7 +245,7 @@ function clone_dotfile() {
 #
 function link_to_home() {
 	echo "link dotfiles into home"
-	files=(".bash_aliases" ".bash_personal" ".path_env.py" ".tmux.conf" ".vimrc" ".vim" ".gitignore_global")
+	files=(".bash_aliases" ".bash_personal" ".tmux.conf" ".vimrc" ".vim" ".gitignore_global")
 	for file in "${files[@]}"; do
 		if [ -L $home/$file ]; then
 			continue
