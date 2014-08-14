@@ -38,48 +38,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias docker-rmc="docker ps -a | grep Exit | cut -d' ' -f1 | xargs docker rm"
 alias docker-umount="sudo umount -l $(grep 'aufs' /proc/mounts | awk '{print$2}' | sort -r)"
 
-# Checkers
-function linters() {
-    local image="joaodubas/checkers:latest"
-    local pybase="/usr/local/bin"
-    local nodebase="/usr/local/lib/node_modules/js-checkers/node_modules/.bin"
-    local dockerbase="docker run -i -t -v $(pwd):/opt/app -w /opt/app"
-    $dockerbase -entrypoint $pybase/$1 $image $2
-}
-function pylint() {
-    linters 'pylint' $1
-}
-function pep8() {
-    linters 'pep8' $1
-}
-function pyflakes() {
-    linters 'pyflakes' $1
-}
-function jshint() {
-    linters 'jshint' $1
-}
-function csslint() {
-    linters 'csslint' $1
-}
-
-# maestro orchestration
-function maestro-ng() {
-    local image="joaodubas/maestro:latest"
-    local cmd="docker run -i -t -v $(pwd):/opt/host --rm"
-    $cmd $image $1
-}
-
-# JavaScript shell
-function js() {
-    docker run \
-        -i \
-        -t \
-        --rm \
-        -v $(pwd):/opt/app \
-        --entrypoint js \
-        joaodubas/spidermonkey:latest \
-        $*
-}
 
 # Load .bash_personal
 if [ -f .bash_personal ]; then
