@@ -49,6 +49,7 @@ function upgrade_system() {
 	echo "install needed deps"
 	apt-get install -y --quiet \
 		build-essential \
+		locales \
 		lxc-docker \
 		python-setuptools \
 		python-dev \
@@ -62,6 +63,22 @@ function upgrade_system() {
 		cmake \
 		curl \
 		zsh
+
+	locales_install
+}
+
+
+#
+# Add locales
+#
+function locales_install() {
+	echo "Install locales"
+	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+	echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen
+
+	locale-gen --purge --lang en_US
+	locale-gen --purge --lang pt_BR
+	locale-gen
 }
 
 
