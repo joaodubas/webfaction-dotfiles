@@ -78,6 +78,15 @@ docker-registry() {
         registry
 }
 
+fig () {
+	docker run -i -t --rm \
+		-v ${PWD}:${PWD} \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-w ${PWD} \
+		dduportal/fig:latest \
+			$@
+}
+
 # Personal hook configurations
 if [ -f ~/.localrc ]; then
     . ~/.localrc
