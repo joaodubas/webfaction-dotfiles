@@ -1,0 +1,93 @@
+alias resource="cd $HOME && source .profile"
+alias cdloggi="cd /opt/loggi/web/loggi"
+alias cdops="cd /opt/loggi/ops"
+LD_LIBRARY_PATH=$GOPATH/src/github.com/cloudson/gitql/libgit2/install/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
+function dev() {
+    local root=/opt/loggi
+
+    if [ ! -d /tmp/pip-cache ]; then
+        mkdir /tmp/pip-cache
+    fi
+
+    docker run -d \
+        -v ${root}/ops:${root}/ops \
+        -v ${root}/web:${root}/web \
+        -v /tmp/pip-cache:/tmp/pip-cache \
+        -p 122:22 \
+        -p 8080:8080 \
+        -p 8081:8081 \
+        -p 8082:8082 \
+        -p 8083:8083 \
+        --expose 8084 \
+        -p 8084:8084 \
+        --hostname dev \
+        --name dev \
+        loggi/dev:latest
+}
+
+function aux-start() {
+    docker run -d \
+        --name aux-server-supervisor \
+        -v ${HOME}/public/docker-env/staging/supervisor:/etc/supervisor/conf.d \
+        debian:jessie \
+            /bin/true
+
+    docker run -d \
+        --name aux-server-redis \
+        -v ${HOME}/public/docker-env/staging/redis:/etc/redis \
+        debian:jessie \
+            /bin/true
+
+    docker run -d \
+        --name aux-server-redis-lib \
+        -v /var/lib/redis \
+        debian:jessie \
+            /bin/bash -c "mkdir -p /var/lib/redis/{rq,cache,data}"
+
+    docker run -d \
+        --name aux-server-code \
+        -v /opt/loggi/web:/opt/loggi/web \
+        debian:jessie \
+            /bin/true
+
+    docker run -d \
+        --name aux-server-log \
+        -v /var/data/docker/log/aux-server:/var/log \
+        debian:jessie \
+            /bin/true
+
+    docker run -d \
+        --name aux-server-pip \
+        -v /tmp/pip-cache \
+        debian:jessie \
+            /bin/true
+
+    docker run -d \
+        --name aux-server \
+        --volumes-from aux-server-supervisor \
+        --volumes-from aux-server-redis \
+        --volumes-from aux-server-redis-lib \
+        --volumes-from aux-server-code \
+        --volumes-from aux-server-log \
+        --volumes-from aux-server-pip \
+        --link htmltopdf:htmltopdf \
+        --link selenium:selenium \
+        -p 10080:8080 \
+        -p 4222:22 \
+        loggi/aux-server
+}
+
+function aux-stop() {
+    docker stop \
+        aux-server
+    docker rm \
+        aux-server-supervisor \
+        aux-server-redis \
+        aux-server-redis-lib \
+        aux-server-code \
+        aux-server-log \
+        aux-server-pip \
+        aux-server
+}
