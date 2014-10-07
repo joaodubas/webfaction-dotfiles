@@ -87,6 +87,16 @@ fig () {
 			$@
 }
 
+docker-backup () {
+	docker run -i -t --rm \
+		-v ${HOME}/bkp:/bkp \
+		-v /var/run/docker.sock:/docker.sock \
+		-v /var/lib/docker/vfs/dir:/var/lib/docker/vfs/dir \
+		fish/docker-backup \
+			-addr /docker.sock \
+			$@
+}
+
 # Personal hook configurations
 if [ -f ~/.localrc ]; then
     . ~/.localrc
