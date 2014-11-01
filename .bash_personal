@@ -48,42 +48,12 @@ docker-install() {
     docker tag ${image} ${repo}:latest
 }
 
-docker-ui() {
-    docker run -d \
-        --name dockerui \
-        -p 9000:9000 \
-        -v /var/run/docker.sock:/docker.sock \
-        crosbymichael/dockerui \
-            -e /docker.sock
-}
-
-docker-registry() {
-    local storage_path=/registry
-    local storage_name=registry-storage
-    local registry_name=registry
-
-    docker run -d \
-        -v ${storage_path} \
-        --name ${storage_name} \
-        ubuntu:14.04 \
-        /bin/true
-
-    docker run -d \
-        -p 5000:5000 \
-        -e SETTINGS_FLAVOR=local \
-        -e STORAGE_PATH=${storage_path} \
-        -e SEARCH_BACKEND=sqlalchemy \
-        --volumes-from ${storage_name} \
-        --name ${registry_name} \
-        registry
-}
-
 fig () {
 	docker run -i -t --rm \
 		-v ${PWD}:${PWD} \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-w ${PWD} \
-		dduportal/fig:latest \
+		joaodubas/fig:latest \
 			$@
 }
 
