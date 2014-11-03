@@ -1,0 +1,12 @@
+---
+skydns:
+  image: crosbymichael/skydns
+  ports:
+    - "172.17.42.1:53:53/udp"
+  command: -nameserver 8.8.8.8:53 -domain dev
+
+skydock:
+  image: crosbymichael/skydock
+  volumes:
+    - /var/run/docker.sock:/docker.sock
+  command: -environment local -s /docker.sock -domain dev -name skydns
