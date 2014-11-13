@@ -17,11 +17,6 @@ export CPLUS_INCLUDE_PATH
 # local development
 export PROJECTS=$HOME/public
 
-# virtualenv
-export WORKON_HOME=$HOME/.venv
-export PROJECT_HOME=$HOME/public
-. /usr/local/bin/virtualenvwrapper.sh
-
 # golang
 export GOROOT=$HOME/local/src/go
 export GOPATH=$HOME/local/go
@@ -31,10 +26,6 @@ if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
 fi
 
 # aliases
-sublime() {
-    $bindir/sublime $@ &
-}
-
 startmux() {
     tmux new -s dev
 }
@@ -62,6 +53,7 @@ docker-backup () {
 		-v ${HOME}/bkp:/bkp \
 		-v /var/run/docker.sock:/docker.sock \
 		-v /var/lib/docker/vfs/dir:/var/lib/docker/vfs/dir \
+		--workdir /bkp \
 		fish/docker-backup \
 			-addr /docker.sock \
 			$@

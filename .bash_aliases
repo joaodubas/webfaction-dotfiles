@@ -13,7 +13,6 @@ alias lsd='ls -l | grep "^d"'  # only directories as a list
 alias c="clear"
 alias g="git"
 alias v="vim"
-alias sbrc="source ~/.bashrc"
 
 
 # Always use color output for `ls`
