@@ -17,6 +17,13 @@ export CPLUS_INCLUDE_PATH
 # local development
 export PROJECTS=$HOME/public
 
+# virtualenv
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+	export WORKON_HOME=$HOME/.venv
+	export PROJECT_HOME=$HOME/public
+	. /usr/local/bin/virtualenvwrapper.sh
+fi
+
 # golang
 export GOROOT=$HOME/local/src/go
 export GOPATH=$HOME/local/go
