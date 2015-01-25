@@ -42,8 +42,8 @@ docker-install() {
     local tag=$(cat TAG)
     local image=${repo}:${tag}
 
-    docker build --rm --tag ${image} .
-    docker tag ${image} ${repo}:latest
+    docker build --force-rm --pull --tag ${image} .
+    docker tag --force ${image} ${repo}:latest
 }
 
 fig () {
