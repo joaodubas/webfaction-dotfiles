@@ -27,8 +27,9 @@ fi
 # golang
 export GOROOT=$HOME/local/src/go
 export GOPATH=$HOME/local/go
-if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
-	PATH=$GOPATH/bin:$PATH
+export GOBIN=$GOPATH/bin
+if [[ ":$PATH:" != *":$GOBIN:"* ]]; then
+	PATH=$GOBIN:$PATH
 	export PATH
 fi
 
