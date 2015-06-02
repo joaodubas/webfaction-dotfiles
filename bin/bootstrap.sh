@@ -137,10 +137,10 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v0.10.30"
-	local dirname="node-$version-linux-x64"
+	local version="v2.2.1"
+	local dirname="iojs-$version-linux-x64"
 	local compact="$dirname.tar.gz"
-	local url="http://nodejs.org/dist/$version/$compact"
+	local url="https://iojs.org/dist/$version/$compact"
 
 	cd $localsrc
 	echo `pwd`
@@ -164,7 +164,7 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.3.1"
+	local version="1.4.2"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://storage.googleapis.com/golang/$compact"
