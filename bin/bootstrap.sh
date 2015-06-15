@@ -40,14 +40,17 @@ function upgrade_system() {
 		linux-headers-$(uname -r) \
 		linux-image-extra-$(uname -r) \
 		software-properties-common
-	# ppa for vim
-	add-apt-repository -y ppa:fcwu-tw/ppa
+
+	echo "enable oracle java repo"
+	add-apt-repository -y ppa:webupd8team/java
+
+	echo "add docker repo"
 	wget -qO- https://get.docker.io/gpg | apt-key add -
 	echo "deb https://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list
-	apt-get update -y --quiet
 
 	echo "install needed deps"
-	apt-get install -y --quiet \
+	apt-get -y -qq --force-yes update
+	apt-get -y -qq --force-yes install \
 		build-essential \
 		locales \
 		lxc-docker \
@@ -62,7 +65,8 @@ function upgrade_system() {
 		make \
 		cmake \
 		curl \
-		zsh
+		zsh \
+		oracle-java8-installer
 
 	locales_install
 }
@@ -137,7 +141,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v2.2.1"
+	local version="v2.3.0"
 	local dirname="iojs-$version-linux-x64"
 	local compact="$dirname.tar.gz"
 	local url="https://iojs.org/dist/$version/$compact"
@@ -197,44 +201,12 @@ function change_owner() {
 
 
 #
-# Initialize all submodules and install vim Bundles
+# Start dotfiles install
 #
-function init_submodule() {
-	echo "init dotfiles submodules"
-	cd $dotfiles
-	git submodule update --init --recursive >/dev/null
-	vim +BundleInstall +qall 2&> /dev/null
-}
-
-
-#
-# Finish install of command-t
-#
-function prepare_command_t() {
-	echo "install command_t"
-	cd $dotfiles/.vim/bundle/Command-T/ruby/command-t
-	ruby extconf.rb > /dev/null
-	make > /dev/null
-}
-
-
-#
-# Finish install of tern
-#
-function prepare_tern() {
-	echo "install tern"
-	cd $dotfiles/.vim/bundle/tern_for_vim
-	$localbin/npm install > /dev/null
-}
-
-
-#
-# Finish install of YCM
-#
-function prepare_ycm() {
-	echo "install ycm"
-	cd $dotfiles/.vim/bundle/YouCompleteMe
-	bash install.sh > /dev/null
+function make_conf() {
+	echo "prepare dotfiles"
+	clone_dotfile
+	link_dotfile
 }
 
 
@@ -250,17 +222,31 @@ function clone_dotfile() {
 	else
 		git clone $dotfiles_git $dotfiles
 	fi
-	init_submodule
-	prepare_command_t
-	prepare_tern
-	prepare_ycm
+
+	echo "init dotfiles submodules"
+	cd $dotfiles
+	git submodule update --init --recursive >/dev/null
+	printf "y" | vim +BundleInstall +qall
+
+	echo "install command_t"
+	cd $dotfiles/.vim/bundle/Command-T/ruby/command-t
+	ruby extconf.rb > /dev/null
+	make > /dev/null
+
+	echo "install tern"
+	cd $dotfiles/.vim/bundle/tern_for_vim
+	$localbin/npm install > /dev/null
+
+	echo "install ycm"
+	cd $dotfiles/.vim/bundle/YouCompleteMe
+	bash install.sh > /dev/null
 }
 
 
 #
-# Link configuration files in user home path
+# Link needed files from dotfiles
 #
-function link_to_home() {
+function link_dotfile() {
 	echo "link dotfiles into home"
 	files=(".bash_aliases" ".bash_personal" ".tmux.conf" ".vimrc" ".vim" ".gitignore_global")
 	for file in "${files[@]}"; do
@@ -272,35 +258,10 @@ function link_to_home() {
 	if [ ! -f $home/.gitconfig ]; then
 		cp $dotfiles/.gitconfig $home/
 	fi
-}
 
-
-#
-# Link $dotfiles/bin into user bin dir
-#
-function link_to_bin() {
 	echo "link dotfiles/bin into user/bin"
 	local origin=$dotfiles/bin
 	ln -s $origin/* $localbin
-}
-
-
-#
-# Link needed files from dotfiles
-#
-function link_dotfile() {
-	link_to_home
-	link_to_bin
-}
-
-
-#
-# Start dotfiles install
-#
-function make_conf() {
-	echo "prepare dotfiles"
-	clone_dotfile
-	link_dotfile
 }
 
 
@@ -310,30 +271,16 @@ function make_conf() {
 
 
 #
-# Install virtualenv
-#
-function install_virtualenv() {
-	echo "install virtualenv"
-	pip install -U virtualenvwrapper virtualenv
-}
-
-
-#
-# Install pip
-#
-function install_pip() {
-	echo "install pip"
-	easy_install pip
-}
-
-
-#
 # Prepare python setuptools
 #
 function prepare_python() {
 	echo "prepare python"
-	install_pip
-	install_virtualenv
+
+	echo "install pip"
+	easy_install pip
+
+	echo "install virtualenv"
+	pip install -U virtualenvwrapper virtualenv
 }
 
 
