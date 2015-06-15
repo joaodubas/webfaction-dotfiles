@@ -6,26 +6,34 @@ autocmd! bufwritepost .vimrc source %
 set nocompatible
 filetype off
 filetype plugin indent off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
 
 
 " Vundles Bundles
-Bundle "gmarik/vundle"
-Bundle "wincent/Command-T"
-Bundle "kien/ctrlp.vim"
-Bundle "Blackrush/vim-gocode"
-Bundle "marijnh/tern_for_vim"
-Bundle "altercation/vim-colors-solarized"
-Bundle "digitaltoad/vim-jade"
-Bundle "Valloric/YouCompleteMe"
-Bundle "scrooloose/syntastic"
-Bundle "jeffkreeftmeijer/vim-numbertoggle"
-Bundle "editorconfig/editorconfig-vim"
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'wincent/Command-T'
+Plugin 'kien/ctrlp.vim'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'fatih/vim-go'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'editorconfig/editorconfig-vim'
+call vundle#end()
 
 
 " Go settings and syntax highlight
-set runtimepath+=$GOROOT/misc/vim
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
 filetype plugin indent on
 syntax on
 
