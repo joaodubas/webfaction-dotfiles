@@ -38,6 +38,10 @@ startmux() {
     tmux new -s dev
 }
 
+# handle docker image build, tagging automatically
+# tagging uses two file: REPOSITORY and TAG
+# REPOSITORY should contain the image repo <username>/<imagename>
+# TAG should container the image version
 docker-install() {
     local repo=$(cat REPOSITORY)
     local tag=$(cat TAG)
@@ -45,26 +49,6 @@ docker-install() {
 
     docker build --force-rm --pull --tag ${image} .
     docker tag --force ${image} ${repo}:latest
-}
-
-fig () {
-	docker run -i -t --rm \
-		-v ${PWD}:${PWD} \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		-w ${PWD} \
-		joaodubas/fig:latest \
-			$@
-}
-
-docker-backup () {
-	docker run -i -t --rm \
-		-v ${HOME}/bkp:/bkp \
-		-v /var/run/docker.sock:/docker.sock \
-		-v /var/lib/docker/vfs/dir:/var/lib/docker/vfs/dir \
-		--workdir /bkp \
-		fish/docker-backup \
-			-addr /docker.sock \
-			$@
 }
 
 # Personal hook configurations
