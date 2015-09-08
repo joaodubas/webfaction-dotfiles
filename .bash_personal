@@ -35,7 +35,7 @@ fi
 
 # aliases
 startmux() {
-    tmux new -s dev
+    tmux -2 new -s dev
 }
 
 # handle docker image build, tagging automatically
