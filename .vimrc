@@ -18,6 +18,7 @@ Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin '29decibel/codeschool-vim-theme'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
@@ -77,15 +78,7 @@ map <Leader>m <esc>:tabnext<CR>
 
 " Better color scheme
 set t_Co=256
-set background=dark
-colorscheme solarized
-let g:solarized_termcolors=256    " colordepth
-let g:solarized_termtrans=0       " 1|0 background transparent
-let g:solarized_bold=1            " 1|0 show bold fonts
-let g:solarized_italic=1          " 1|0 show italic fonts
-let g:solarized_underline=1       " 1|0 show underlines
-let g:solarized_contrast="normal" " normal|high|low contrast
-let g:solarized_visibility="low"  " normal|high|low effect on whitespaces
+color codeschool
 
 
 " Showing line numbers and length
