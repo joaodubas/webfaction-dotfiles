@@ -38,22 +38,17 @@ function upgrade_system() {
 		dkms \
 		linux-headers-generic \
 		linux-headers-$(uname -r) \
-		linux-image-extra-$(uname -r) \
 		software-properties-common
 
 	echo "enable oracle java repo"
 	add-apt-repository -y ppa:webupd8team/java
 
-	echo "add docker repo"
-	wget -qO- https://get.docker.io/gpg | apt-key add -
-	echo "deb https://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list
-
 	echo "install needed deps"
 	apt-get -y -qq --force-yes update
 	apt-get -y -qq --force-yes install \
 		build-essential \
+		xz-utils \
 		locales \
-		lxc-docker \
 		python-setuptools \
 		python-dev \
 		ruby-dev \
@@ -83,6 +78,74 @@ function locales_install() {
 	locale-gen --purge --lang en_US
 	locale-gen --purge --lang pt_BR
 	locale-gen
+}
+
+
+#
+# Install docker and pals
+#
+function docker_compose() {
+	echo "install docker compose"
+
+	local version="1.6.2"
+	local arch="$(uname -s)-$(uname -m)"
+	local cmd="docker-compose-${machine}"
+	local base="https://github.com/docker/compose/releases/download" 
+	local url="${base}/${version}/${cmd}"
+
+	cd $localsrc
+	curl -O ${url} > /dev/null
+	chmod 755 ${cmd}
+
+	cd $localbin
+	ln -s ../src/${cmd} ./docker-compose
+}
+
+function docker_machine() {
+	echo "install docker compose"
+
+	local version="0.6.0"
+	local arch="$(uname -s)-$(uname -m)"
+	local cmd="docker-machine-${machine}"
+	local base="https://github.com/docker/machine/releases/download" 
+	local url="${base}/${version}/${cmd}"
+
+	cd $localsrc
+	curl -O ${url} > /dev/null
+	chmod 755 ${cmd}
+
+	cd $localbin
+	ln -s ../src/${cmd} ./docker-machine
+}
+
+
+function docker_engine() {
+	echo "Install docker"
+
+	apt-get -y -qq --force-yes update
+	apt-get -y -qq --force-yes install \
+		linux-image-extra-$(uname -r) \
+		apparmor \
+		apt-transport-https \
+		ca-certificates
+
+	apt-key adv \
+		--keyserver hkp://p80.pool.sks-keyservers.net:80 \
+		--recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+	echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" \
+		> /etc/apt/sources.list.d/docker.list
+
+	apt-get -y -qq --force-yes update
+	apt-get -y -qq --force-yes install \
+		docker-engine
+}
+
+function docker() {
+	echo "Install docker & pals"
+	docker_engine
+	docker_compose
+	docker_machine
 }
 
 
@@ -141,16 +204,16 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v2.3.0"
-	local dirname="iojs-$version-linux-x64"
-	local compact="$dirname.tar.gz"
-	local url="https://iojs.org/dist/$version/$compact"
+	local version="v5.9.1"
+	local dirname="node-$version-linux-x64"
+	local compact="$dirname.tar.xz"
+	local url="https://nodejs/dist/$version/$compact"
 
 	cd $localsrc
 	echo `pwd`
 	echo $localsrc
 	curl -O $url > /dev/null
-	tar -xzf $compact > /dev/null
+	tar -xJf $compact > /dev/null
 	ln -s $dirname nodejs
 	rm $compact
 
@@ -168,7 +231,7 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.4.2"
+	local version="1.6"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://storage.googleapis.com/golang/$compact"
@@ -297,6 +360,7 @@ function install_zsh() {
 case $step in
 	upgrade)
 		upgrade_system
+		docker
 		;;
 	group)
 		docker_group
@@ -328,6 +392,7 @@ case $step in
 		upgrade_system
 		prepare_python
 		make_home
+		docker
 		docker_group
 		node_install
 		golang_install
