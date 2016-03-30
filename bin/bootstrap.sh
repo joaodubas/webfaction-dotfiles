@@ -89,7 +89,7 @@ function docker_compose() {
 
 	local version="1.6.2"
 	local arch="$(uname -s)-$(uname -m)"
-	local cmd="docker-compose-${machine}"
+	local cmd="docker-compose-${arch}"
 	local base="https://github.com/docker/compose/releases/download" 
 	local url="${base}/${version}/${cmd}"
 
@@ -106,7 +106,7 @@ function docker_machine() {
 
 	local version="0.6.0"
 	local arch="$(uname -s)-$(uname -m)"
-	local cmd="docker-machine-${machine}"
+	local cmd="docker-machine-${arch}"
 	local base="https://github.com/docker/machine/releases/download" 
 	local url="${base}/${version}/${cmd}"
 
@@ -133,7 +133,7 @@ function docker_engine() {
 		--keyserver hkp://p80.pool.sks-keyservers.net:80 \
 		--recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
-	echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" \
+	echo "deb https://apt.dockerproject.org/repo ubuntu-wily main" \
 		> /etc/apt/sources.list.d/docker.list
 
 	apt-get -y -qq --force-yes update
@@ -207,7 +207,7 @@ function node_install() {
 	local version="v5.9.1"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.xz"
-	local url="https://nodejs/dist/$version/$compact"
+	local url="https://nodejs.org/dist/$version/$compact"
 
 	cd $localsrc
 	echo `pwd`
@@ -386,6 +386,13 @@ case $step in
 	zsh)
 		upgrade_system
 		install_zsh
+		change_owner
+		;;
+	docker)
+		make_home
+		docker_engine
+		docker_compose
+		docker_machine
 		change_owner
 		;;
 	*)
