@@ -248,6 +248,14 @@ function golang_install() {
 }
 
 
+"
+" install tmuxp
+#
+function tmuxp_install() {
+	pip install tmuxp
+}
+
+
 #
 # Change ownership to user
 #
@@ -302,7 +310,7 @@ function clone_dotfile() {
 
 	echo "install ycm"
 	cd $dotfiles/.vim/bundle/YouCompleteMe
-	bash install.sh > /dev/null
+	bash install.py > /dev/null
 }
 
 
