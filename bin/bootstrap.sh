@@ -204,7 +204,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v5.9.1"
+	local version="v5.11.0"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.xz"
 	local url="https://nodejs.org/dist/$version/$compact"
@@ -231,7 +231,7 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.6"
+	local version="1.6.2"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://storage.googleapis.com/golang/$compact"
