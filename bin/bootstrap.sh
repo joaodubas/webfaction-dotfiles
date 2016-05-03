@@ -35,7 +35,6 @@ function upgrade_system() {
 	echo "upgrade system"
 	apt-get -y -qq --force-yes update
 	apt-get -y -qq --force-yes install \
-		dkms \
 		linux-headers-generic \
 		linux-headers-$(uname -r) \
 		software-properties-common
@@ -248,8 +247,8 @@ function golang_install() {
 }
 
 
-"
-" install tmuxp
+#
+# install tmuxp
 #
 function tmuxp_install() {
 	pip install tmuxp
