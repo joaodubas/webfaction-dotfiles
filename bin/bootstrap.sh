@@ -299,7 +299,7 @@ function clone_dotfile() {
 	printf "y" | vim +BundleInstall +qall
 
 	echo "install command_t"
-	cd $dotfiles/.vim/bundle/Command-T/ruby/command-t
+	cd $dotfiles/.vim/bundle/command-t/ruby/command-t/ext/command-t
 	ruby extconf.rb > /dev/null
 	make > /dev/null
 
@@ -309,7 +309,7 @@ function clone_dotfile() {
 
 	echo "install ycm"
 	cd $dotfiles/.vim/bundle/YouCompleteMe
-	bash install.py > /dev/null
+	exec install.py --go-completer --clang-completer --js-completer > /dev/null
 }
 
 
