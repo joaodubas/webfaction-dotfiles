@@ -123,21 +123,21 @@ function docker_engine() {
 
 	apt-get -y -qq --force-yes update
 	apt-get -y -qq --force-yes install \
-		linux-image-extra-$(uname -r) \
 		apparmor \
 		apt-transport-https \
+		software-properties-common \
 		ca-certificates
 
-	apt-key adv \
-		--keyserver hkp://p80.pool.sks-keyservers.net:80 \
-		--recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-	echo "deb https://apt.dockerproject.org/repo ubuntu-wily main" \
-		> /etc/apt/sources.list.d/docker.list
+	add-apt-repository \
+		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+		$(lsb_release -cs) \
+		stable"
 
 	apt-get -y -qq --force-yes update
 	apt-get -y -qq --force-yes install \
-		docker-engine
+		docker-ce
 }
 
 function docker() {
