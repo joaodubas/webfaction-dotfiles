@@ -86,18 +86,18 @@ function locales_install() {
 function docker_compose() {
 	echo "install docker compose"
 
-	local version="1.6.2"
+	local version="1.19.0"
 	local arch="$(uname -s)-$(uname -m)"
 	local cmd="docker-compose-${arch}"
 	local base="https://github.com/docker/compose/releases/download" 
 	local url="${base}/${version}/${cmd}"
 
 	cd $localsrc
-	curl -O ${url} > /dev/null
+	curl ${url} -o docker-compose > /dev/null
 	chmod 755 ${cmd}
 
 	cd $localbin
-	ln -s ../src/${cmd} ./docker-compose
+	ln -s ../src/docker-compose ./docker-compose
 }
 
 function docker_machine() {
@@ -203,7 +203,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v5.11.0"
+	local version="v9.7.1"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.xz"
 	local url="https://nodejs.org/dist/$version/$compact"
@@ -230,10 +230,10 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.6.2"
+	local version="1.10"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
-	local url="https://storage.googleapis.com/golang/$compact"
+	local url="https://dl.google.com/go/$compact"
 
 	cd $localsrc
 	curl -O $url > /dev/null
