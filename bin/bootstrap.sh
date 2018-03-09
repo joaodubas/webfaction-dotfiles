@@ -224,6 +224,12 @@ function node_install() {
 #
 # Install go
 #
+function golang_dep_install() {
+	echo "install dep"
+	local bindir=$home/local/go/bin
+	INSTALL_DIRECTORY=$bindir curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+}
+
 function golang_install() {
 	echo "install golang"
 	if [ -s $localsrc/go ]; then
@@ -244,6 +250,8 @@ function golang_install() {
 	ln -s ../src/go/bin/* ./
 
 	mkdir -p $home/local/go/{src,bin,pkg}
+
+	golang_dep_install
 }
 
 
