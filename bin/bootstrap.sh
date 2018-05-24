@@ -86,7 +86,7 @@ function locales_install() {
 function docker_compose() {
 	echo "install docker compose"
 
-	local version="1.19.0"
+	local version="1.21.0"
 	local arch="$(uname -s)-$(uname -m)"
 	local cmd="docker-compose-${arch}"
 	local base="https://github.com/docker/compose/releases/download" 
@@ -103,7 +103,7 @@ function docker_compose() {
 function docker_machine() {
 	echo "install docker compose"
 
-	local version="0.6.0"
+	local version="0.14.0"
 	local arch="$(uname -s)-$(uname -m)"
 	local cmd="docker-machine-${arch}"
 	local base="https://github.com/docker/machine/releases/download" 
@@ -203,7 +203,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v9.7.1"
+	local version="v9.11.1"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.xz"
 	local url="https://nodejs.org/dist/$version/$compact"
@@ -236,7 +236,7 @@ function golang_install() {
 		return 0
 	fi
 
-	local version="1.10"
+	local version="1.10.1"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://dl.google.com/go/$compact"
@@ -304,20 +304,20 @@ function clone_dotfile() {
 	echo "init dotfiles submodules"
 	cd $dotfiles
 	git submodule update --init --recursive >/dev/null
-	printf "y" | vim +BundleInstall +qall
+	# printf "y" | vim +BundleInstall +qall
 
 	echo "install command_t"
-	cd $dotfiles/.vim/bundle/command-t/ruby/command-t/ext/command-t
-	ruby extconf.rb > /dev/null
-	make > /dev/null
+	# cd $dotfiles/.vim/bundle/command-t/ruby/command-t/ext/command-t
+	# ruby extconf.rb > /dev/null
+	# make > /dev/null
 
 	echo "install tern"
-	cd $dotfiles/.vim/bundle/tern_for_vim
-	$localbin/npm install > /dev/null
+	# cd $dotfiles/.vim/bundle/tern_for_vim
+	# $localbin/npm install > /dev/null
 
 	echo "install ycm"
-	cd $dotfiles/.vim/bundle/YouCompleteMe
-	exec install.py --go-completer --clang-completer --js-completer > /dev/null
+	# cd $dotfiles/.vim/bundle/YouCompleteMe
+	# exec install.py --go-completer --clang-completer --js-completer > /dev/null
 }
 
 
