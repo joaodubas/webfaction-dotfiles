@@ -37,15 +37,19 @@ function upgrade_system() {
 	apt-get -y -qq --force-yes install \
 		linux-headers-generic \
 		linux-headers-$(uname -r) \
-		software-properties-common
+		software-properties-common \
 
 	echo "enable oracle java repo"
 	add-apt-repository -y ppa:webupd8team/java
 
 	echo "install needed deps"
+	# NOTE: gawk and xsel are deps used by tmux plugins
 	apt-get -y -qq --force-yes update
 	apt-get -y -qq --force-yes install \
 		build-essential \
+		libbz2-dev \
+		libreadline-dev \
+		libsqlite3-dev \
 		xz-utils \
 		locales \
 		python-setuptools \
@@ -60,7 +64,9 @@ function upgrade_system() {
 		cmake \
 		curl \
 		zsh \
-		oracle-java8-installer
+		oracle-java8-installer \
+		gawk \
+		xsel
 
 	locales_install
 }
