@@ -92,7 +92,7 @@ function locales_install() {
 function docker_compose() {
 	echo "install docker compose"
 
-	local version="1.21.0"
+	local version="1.22.0"
 	local arch="$(uname -s)-$(uname -m)"
 	local cmd="docker-compose-${arch}"
 	local base="https://github.com/docker/compose/releases/download" 
