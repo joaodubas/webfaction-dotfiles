@@ -37,7 +37,7 @@ function upgrade_system() {
 	apt-get -y -qq --force-yes install \
 		linux-headers-generic \
 		linux-headers-$(uname -r) \
-		software-properties-common \
+		software-properties-common
 
 	echo "enable oracle java repo"
 	add-apt-repository -y ppa:webupd8team/java
@@ -89,40 +89,12 @@ function locales_install() {
 #
 # Install docker and pals
 #
-function docker_compose() {
-	echo "install docker compose"
-
-	local version="1.22.0"
-	local arch="$(uname -s)-$(uname -m)"
-	local cmd="docker-compose-${arch}"
-	local base="https://github.com/docker/compose/releases/download" 
-	local url="${base}/${version}/${cmd}"
-
-	cd $localsrc
-	curl ${url} -o docker-compose > /dev/null
-	chmod 755 ${cmd}
-
-	cd $localbin
-	ln -s ../src/docker-compose ./docker-compose
+function docker() {
+	echo "Install docker & pals"
+	docker_engine
+	docker_compose
+	docker_machine
 }
-
-function docker_machine() {
-	echo "install docker compose"
-
-	local version="0.14.0"
-	local arch="$(uname -s)-$(uname -m)"
-	local cmd="docker-machine-${arch}"
-	local base="https://github.com/docker/machine/releases/download" 
-	local url="${base}/${version}/${cmd}"
-
-	cd $localsrc
-	curl -O ${url} > /dev/null
-	chmod 755 ${cmd}
-
-	cd $localbin
-	ln -s ../src/${cmd} ./docker-machine
-}
-
 
 function docker_engine() {
 	echo "Install docker"
@@ -146,11 +118,38 @@ function docker_engine() {
 		docker-ce
 }
 
-function docker() {
-	echo "Install docker & pals"
-	docker_engine
-	docker_compose
-	docker_machine
+function docker_compose() {
+	echo "install docker compose"
+
+	local version="1.23.1"
+	local arch="$(uname -s)-$(uname -m)"
+	local cmd="docker-compose-${arch}"
+	local base="https://github.com/docker/compose/releases/download" 
+	local url="${base}/${version}/${cmd}"
+
+	cd $localsrc
+	curl ${url} -o docker-compose > /dev/null
+	chmod 755 ${cmd}
+
+	cd $localbin
+	ln -s ../src/docker-compose ./docker-compose
+}
+
+function docker_machine() {
+	echo "install docker compose"
+
+	local version="0.16.0"
+	local arch="$(uname -s)-$(uname -m)"
+	local cmd="docker-machine-${arch}"
+	local base="https://github.com/docker/machine/releases/download" 
+	local url="${base}/${version}/${cmd}"
+
+	cd $localsrc
+	curl -O ${url} > /dev/null
+	chmod 755 ${cmd}
+
+	cd $localbin
+	ln -s ../src/${cmd} ./docker-machine
 }
 
 
@@ -209,7 +208,7 @@ function node_install() {
 		return 0
 	fi
 
-	local version="v9.11.1"
+	local version="v11.3.0"
 	local dirname="node-$version-linux-x64"
 	local compact="$dirname.tar.xz"
 	local url="https://nodejs.org/dist/$version/$compact"
@@ -230,19 +229,13 @@ function node_install() {
 #
 # Install go
 #
-function golang_dep_install() {
-	echo "install dep"
-	local bindir=$home/local/go/bin
-	INSTALL_DIRECTORY=$bindir curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-}
-
 function golang_install() {
 	echo "install golang"
 	if [ -s $localsrc/go ]; then
 		return 0
 	fi
 
-	local version="1.10.1"
+	local version="1.11.2"
 	local dirname="go$version.linux-amd64"
 	local compact="$dirname.tar.gz"
 	local url="https://dl.google.com/go/$compact"
@@ -260,12 +253,38 @@ function golang_install() {
 	golang_dep_install
 }
 
+function golang_dep_install() {
+	echo "install dep"
+	local bindir=$home/local/go/bin
+	INSTALL_DIRECTORY=$bindir curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+}
+
 
 #
-# install tmuxp
+# Install tmuxp
 #
 function tmuxp_install() {
+	echo "install tmuxp"
 	pip install tmuxp
+}
+
+
+#
+# Install oh-my-zsh
+#
+function install_zsh() {
+	echo "install zsh"
+	export ZSH=${home}/.oh-my-zsh
+	curl -L http://install.ohmyz.sh | bash
+}
+
+
+#
+# Install spotify cli
+#
+function install_spotify_cli() {
+	echo "install spotify cli"
+	pip install spotify-cli-linux
 }
 
 
@@ -365,16 +384,6 @@ function prepare_python() {
 
 	echo "install virtualenv"
 	pip install -U virtualenvwrapper virtualenv
-}
-
-
-#
-# Install oh-my-zsh
-#
-function install_zsh() {
-	echo "install zsh"
-	export ZSH=${home}/.oh-my-zsh
-	curl -L http://install.ohmyz.sh | bash
 }
 
 
