@@ -70,8 +70,10 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   let g:deoplete#sources._=['file', 'neosnippet']
   let g:deoplete#omni#functions={}
   let g:deoplete#omni#input_patterns={}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'cloudhead/neovim-fuzzy'
+  nnoremap <C-p> :FuzzyOpen<CR>
 " Plug 'ervandew/supertab'
-" Plug 'editorconfig/editorconfig-vim'
 " Plug 'tpope/vim-unimpaired'
 " Plug 'w0rp/ale'
 "   let g:ale_lint_on_save=0
