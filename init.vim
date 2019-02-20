@@ -86,17 +86,17 @@ Plug 'tomasr/molokai'
 " Plug 'fmoralesc/molokayo'
 " Plug 'ayu-theme/ayu-vim'
 " Plug 'lifepillar/vim-solarized8'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-"   let g:airline_theme='solarized'
-"   let g:bufferline_echo=0
-"   let g:airline_powerline_fonts=0
-"   let g:airline_enable_branch=1
-"   let g:airline_enable_syntastic=1
-"   let g:airline_branch_prefix = '⎇ '
-"   let g:airline_paste_symbol = '∥'
-"   let g:airline#extensions#tabline#enabled=0
-"   let g:airline#extensions#ale#enabled=1
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+  let g:airline_theme='solarized'
+  let g:bufferline_echo=0
+  let g:airline_powerline_fonts=0
+  let g:airline_enable_branch=1
+  let g:airline_enable_syntastic=1
+  let g:airline_branch_prefix = '⎇ '
+  let g:airline_paste_symbol = '∥'
+  let g:airline#extensions#tabline#enabled=0
+  let g:airline#extensions#ale#enabled=1
 
 call plug#end()
 
@@ -106,7 +106,7 @@ call plug#end()
 
 set background=dark
 syntax enable
-" colorscheme molokai
+colorscheme molokai
 
 nnoremap <silent> <cr> :nohlsearch<cr>
 
