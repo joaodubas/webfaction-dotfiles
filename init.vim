@@ -48,7 +48,7 @@ call plug#begin()
 Plug 'sheerun/vim-polyglot'
 
 " Elixir
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'mhinz/vim-mix-format'
   let g:mix_format_on_save=0
